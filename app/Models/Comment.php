@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\CommentMention;
 use App\Observers\CommentObserver;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -21,7 +22,7 @@ class Comment extends Model
     {
         static::pivotAttached(function ($model, $relationName, $pivotIds) {
             if ($relationName === 'mentions') {
-                // notify the user(s)
+                User::find($pivotIds)->each->notify(new CommentMention($model));
             }
         });
     }
