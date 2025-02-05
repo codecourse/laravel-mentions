@@ -22,7 +22,7 @@ state([
 ]);
 
 rules([
-    'username' => ['required', 'string', 'max:20', Rule::unique('users')],
+    'username' => ['required', 'string', 'max:20', 'alpha_dash:ascii', Rule::unique('users')],
     'name' => ['required', 'string', 'max:255'],
     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
     'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],

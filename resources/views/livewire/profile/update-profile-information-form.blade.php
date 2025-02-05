@@ -18,7 +18,7 @@ $updateProfileInformation = function () {
     $user = Auth::user();
 
     $validated = $this->validate([
-        'username' => ['required', 'string', 'max:20', Rule::unique('users')->ignore($user->id)],
+        'username' => ['required', 'string', 'max:20', 'alpha_dash:ascii', Rule::unique('users')->ignore($user->id)],
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
     ]);
