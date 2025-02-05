@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Comment;
+use App\Models\User;
 
 class CommentObserver
 {
@@ -29,6 +30,14 @@ class CommentObserver
             PREG_SET_ORDER
         );
 
-        dd($mentions);
+        if (count($mentions) === 0) {
+            return;
+        }
+
+        $comment->mentions()->sync(
+            User::whereIn('username', collect($mentions)->pluck('username'))
+                ->pluck('id')
+                ->toArray()
+        );
     }
 }

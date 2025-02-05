@@ -19,4 +19,10 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function mentions()
+    {
+        return $this->belongsToMany(User::class, 'comments_mentions')
+            ->withTimestamps();
+    }
 }
