@@ -5,7 +5,7 @@
         </div>
         @if (!$editing)
             <p class="mt-1">
-                {{ $comment->body }}
+                @markdown($comment->body)
             </p>
         @else
             <form class="mt-1" wire:submit="editComment">
