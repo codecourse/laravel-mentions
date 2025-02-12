@@ -9,21 +9,8 @@
             </p>
         @else
             <form class="mt-1" wire:submit="editComment">
-                <div
-                    x-data
-                    x-init='
-                        let tribute = new Tribute({
-                            trigger: "@",
-                            values: @json(App\Mentions\Mentionables::get()),
-                            menuItemTemplate: (item) => {
-                                return "@" + item.original.value + " (" + item.original.key + ")"
-                            }
-                        })
-
-                        tribute.attach($refs.textarea)
-                    '
-                >
-                    <x-textarea class="w-full" rows="3" x-ref="textarea" wire:model="form.body" />
+                <div>
+                    <x-textarea class="w-full" rows="3" wire:model="form.body" x-mentionable />
                 </div>
 
                 <div>

@@ -10,29 +10,8 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
                 <form wire:submit="createComment">
-                    <div
-                        x-data
-                        x-init='
-                            const userSearch = (text, cb) => {
-                                axios.get("/users/search?q=" + text).then((response) => {
-                                    cb(response.data)
-                                })
-                            }
-
-                            let tribute = new Tribute({
-                                trigger: "@",
-                                values: (text, cb) => userSearch(text, users => cb(users)),
-                                lookup: "value",
-                                fillAttr: "value",
-                                menuItemTemplate: (item) => {
-                                    return "@" + item.original.value + " (" + item.original.key + ")"
-                                }
-                            })
-
-                            tribute.attach($refs.textarea)
-                        '
-                    >
-                        <x-textarea class="w-full" rows="4" wire:model="form.body" x-ref="textarea" />
+                    <div>
+                        <x-textarea class="w-full" rows="4" wire:model="form.body" x-mentionable />
                     </div>
 
                     <x-primary-button>
