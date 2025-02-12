@@ -13,9 +13,17 @@
                     <div
                         x-data
                         x-init='
+                            const userSearch = (text, cb) => {
+                                axios.get("/users/search?q=" + text).then((response) => {
+                                    cb(response.data)
+                                })
+                            }
+
                             let tribute = new Tribute({
                                 trigger: "@",
-                                values: @json(App\Mentions\Mentionables::get()),
+                                values: (text, cb) => userSearch(text, users => cb(users)),
+                                lookup: "value",
+                                fillAttr: "value",
                                 menuItemTemplate: (item) => {
                                     return "@" + item.original.value + " (" + item.original.key + ")"
                                 }
