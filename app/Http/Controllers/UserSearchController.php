@@ -9,8 +9,8 @@ class UserSearchController extends Controller
 {
     public function __invoke(Request $request)
     {
-        return User::query()
-            ->where('username', 'LIKE', $request->get('q', '') . '%')
+        return User::search($request->get('q', ''))
+            //->where('username', 'LIKE', $request->get('q', '') . '%')
             ->get()
             ->map(fn (User $user) => [
                 'key' => $user->name,
